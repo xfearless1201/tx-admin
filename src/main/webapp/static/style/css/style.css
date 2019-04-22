@@ -1,0 +1,198 @@
+html,body{
+	width: 100%;
+	height: 100%;
+	line-height: 1.3;
+    font-family: Arial,Helvetica,Tahoma,Verdana,sans-serif;
+}
+*{
+	margin: 0;padding: 0;
+}
+a{text-decoration: none;color: #333;}
+.li_font{
+	text-align: center;
+	font-size: 14px;
+    line-height: 1.3;
+    font-weight: bold;
+    font-family: Arial,Helvetica,Tahoma,Verdana,sans-serif;
+    line-height: 27px;
+}
+ul,li{list-style: none; cursor: pointer;}
+.fr{
+	float: right;
+}
+.fl{float: left;}
+.clear:after{
+	content: '';
+	display: block;
+	clear: both;
+}
+.wrap{
+	width: 100%;
+	height: 100%;
+}
+.wrap .header{
+	width: 100%;
+	height: 43px;
+	left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1000;
+    padding: 3px;
+}
+
+.ui-page-theme {
+	background-color: #fff;
+    border-color: #9e9e9e;
+    color: #333;
+    text-shadow: 0 1px 0 #eee;
+    font-weight: bold;
+}
+.ui-input-text{
+	margin-top: 3px;
+    margin-bottom: 3px;
+}
+ .ckf-toolbar {
+ 	border-style: solid;
+    border-width: 1px;
+    top: 0;
+    max-width: calc(100% - 2px);
+    padding-top: 0;
+}
+.wrap .header h2{
+	padding:5px;
+}
+.header_choice{
+	width: 154px;
+	height: 29px;
+	margin: 3.2px 0 2px 0;
+	margin-bottom: 2px;
+	border-radius: 5px;
+	border: 1px solid #9e9e9e;
+	padding: 0;
+	z-index: 10;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+	overflow: hidden;
+	margin-right: 20px;
+}
+.chonce_input{
+	width: 138px;
+	height: 18px;
+    padding: 5px 7px;
+    border: 0;
+    outline: 0;
+    background-color: white;
+    
+}
+.wrap .header_setting{
+	width: 28px;
+	height: 28px;
+	border: 1px solid #b6b6b6;
+	border-radius: 50%;
+	margin: 3.2px;
+}
+.wrap .left_tree{
+	width: 170px;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	background-color: #fff;
+    border:1px solid #9e9e9e;
+    color: #333;
+    text-shadow: 0 1px 0 #f3f3f3;
+    z-index: 10;
+}
+.wrap .left_tree .tree_buttons {
+	margin-top: 29px;
+}
+.wrap .left_tree .tree_buttons .tree_item{
+	height: 27px;
+	width: 169px;
+	text-shadow: 0 1px 0 #f3f3f3;
+    color: #333;
+    border: 1px solid #b6b6b6;
+    /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(100%, #e4e4e4));
+    background: -webkit-linear-gradient(top, #fff 0, #e4e4e4 100%);
+    background: -o-linear-gradient(top, #fff 0, #e4e4e4 100%);
+    background: -ms-linear-gradient(top, #fff 0, #e4e4e4 100%);*/
+    /*background: linear-gradient(to bottom, #fff 0, #e4e4e4 100%);*/
+   background-color: #fff;
+}
+/*.wrap .left_tree .tree_buttons li a:hover{
+	background-color: red;
+}*/
+/*.tree_item:hover{
+	background: #9e9e9e !important;
+	color: #FFFFFF !important;
+}*/
+/*li:visited{
+	background-color: #38c !important;
+    border-color: #38c !important;
+    color: #fff !important;
+    text-shadow: 0 1px 0 #059 !important;
+}*/
+.wrap .img_list{
+	height: 100%;
+	position: fixed;
+	left: 270px;
+	margin-top: 50px;
+	padding: 5px;
+	
+	
+}
+.wrap .img_list li{
+	position: relative;
+	width: 150px;
+	height: 150px;
+	float: left;
+    margin: 10px;
+    overflow: hidden;
+    border-width: 0;
+    background-color: #e9e9e9;
+    overflow: visible;
+    border: 1px solid #b6b6b6;;
+}
+.wrap .img_list li img{
+	margin-top: -1px;
+	width:150px;
+	height:151px;
+}
+.wrap .img_list li .img_detail{
+	font-size: 10px;
+	opacity: 0.85;
+	filter:alpha(opacity=85); 
+	position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    overflow: visible;
+    white-space: normal; 
+    padding: 3px 6px;
+    transition: opacity 400ms ease;
+    border: 0;
+    background-color: #e9e9e9;
+    color: #333;
+    text-shadow: 0 1px 0 #eee;
+}
+/*.wrap .img_list li:hover{
+	background-color: #9E9E9E !important;
+}*/
+.wrap .img_list li .img_detail h2{
+	width:140px;
+	margin-bottom: 5px;
+	font-size:12px;
+	word-wrap:break-word;
+}
+.img_operation {
+	margin-left: 27px;
+	margin-top: 20px;
+}
+.img_operation input[type=button]{
+	width: 70px;
+	height: 35px;
+	border-radius: 3px;
+	text-shadow: 0 1px 0 #f3f3f3;
+    color: #333;
+    border: 1px solid #b6b6b6;
+    background: linear-gradient(to bottom, #fff 0, #e4e4e4 100%);
+    font-weight: bold;
+}

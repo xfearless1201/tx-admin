@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+       
+    <!-- base dataSource -->
+	<bean id="txdataDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${txdataUrl}"/>
+		<property name="username" value="${txdataUsername}"/>
+		<property name="password" value="${txdataPassword}"/>
+		<property name="driverClassName" value="${txdataDriverName}"/>
+		<property name="initialSize" value="1"/>
+		<property name="minIdle" value="1"/>
+		<property name="maxActive" value="100"/>
+		<property name="maxWait" value="60000"/>
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>
+		<property name="minEvictableIdleTimeMillis" value="300000"/>
+		<property name="validationQuery" value="SELECT 'x'"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="filters" value="config" />
+		<property name="connectionProperties" value="config.decrypt=true;config.decrypt.key=${public-key}" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<ref bean="wall-filter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置Mybatis的文 ，mapperLocations配置**Mapper.xml文件位置，configLocation配置mybatis-config文件位置 -->
+	<bean id="txdataSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="txdataDataSource" />
+		<property name="mapperLocations" value="classpath*:mapper/**/*.xml" />
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+	</bean>
+
+	<!-- DAO接口包名，Spring会自动查找其下的 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.cn.tianxia.admin.mapper.txdata" />
+		<property name="sqlSessionFactoryBeanName" value="txdataSqlSessionFactory"/>
+	</bean>
+	
+	<!-- 事务 -->
+	<bean id="txdataTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">	
+		<property name="dataSource" ref="txdataDataSource" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txdataTransactionManager"/>
+	
+	<!-- base dataSource -->
+	<bean id="ftpdataDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${ftpdataUrl}"/>
+		<property name="username" value="${ftpdataUsername}"/>
+		<property name="password" value="${ftpdataPassword}"/>
+		<property name="driverClassName" value="${ftpdataDriverName}"/>
+		<!--<property name="filters" value="stat"/>-->
+		<property name="initialSize" value="1"/>
+		<property name="minIdle" value="1"/>
+		<property name="maxActive" value="100"/>
+		<property name="maxWait" value="60000"/>
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>
+		<property name="minEvictableIdleTimeMillis" value="300000"/>
+		<property name="validationQuery" value="SELECT 'x'"/>
+		<property name="testWhileIdle" value="true"/>
+		<property name="testOnBorrow" value="false"/>
+		<property name="testOnReturn" value="false"/>
+		<property name="filters" value="config" />
+		<property name="connectionProperties" value="config.decrypt=true;config.decrypt.key=${public-key}" />
+		<property name="proxyFilters">
+			<list>
+				<ref bean="stat-filter" />
+				<ref bean="wall-filter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置Mybatis的文 ，mapperLocations配置**Mapper.xml文件位置，configLocation配置mybatis-config文件位置 -->
+	<bean id="ftpdataSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ftpdataDataSource" />
+		<property name="mapperLocations" value="classpath*:mapper/**/*.xml" />
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+	</bean>
+
+	<!-- DAO接口包名，Spring会自动查找其下的 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.cn.tianxia.admin.mapper.ftpdata" />
+		<property name="sqlSessionFactoryBeanName" value="ftpdataSqlSessionFactory"/>
+	</bean>
+	
+	<!-- 事务 -->
+	<bean id="ftpdataTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">	
+		<property name="dataSource" ref="ftpdataDataSource" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="ftpdataTransactionManager"/>
+    
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="1000" />
+		<property name="logSlowSql" value="true" />
+		<property name="mergeSql" value="true" />
+	</bean>
+
+	<bean id="wall-filter" class="com.alibaba.druid.wall.WallFilter">
+		<property name="dbType" value="mysql" />
+		<property name="config" ref="wall-filter-config" />
+	</bean>
+	
+	<bean id="wall-filter-config" class="com.alibaba.druid.wall.WallConfig">
+		<property name="multiStatementAllow" value="true" />
+	</bean>
+    
+</beans>

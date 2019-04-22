@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+
+    <context:component-scan base-package="com.cn.tianxia.admin" />
+    
+    <mvc:annotation-driven />
+
+    <bean id="viewResolver"
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:order="10" p:prefix="/WEB-INF/templates/" p:suffix=".jsp" />
+        
+    <!-- 配置哪些是静态资源，缺省Servlet 直接返回 -->
+	<mvc:resources mapping="/static/**" location="/static/"
+		cache-period="31556926" />
+	<mvc:resources mapping="/favicon.ico" location="/static/style/images/favicon.ico"
+		cache-period="31556926" />
+		
+	<!-- Spring csrf 拦截器 -->
+	<!-- <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/login" />
+			<bean class="com.cn.tianxia.admin.commons.csrf.CsrfInterceptor" />
+		</mvc:interceptor>
+		多个拦截器，顺序执行
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.cn.tianxia.admin.commons.interceptor.IPInterceptor"></bean>
+		</mvc:interceptor>
+
+
+		防止重复提交提款请求
+		<mvc:interceptor>
+			<mvc:mapping path="/fundManage/withDrawPreAudit" />
+			<mvc:mapping path="/fundManage/withdrawUpdate" />
+			<mvc:mapping path="/tAmountRecord/preAudit" />
+			<mvc:mapping path="/tAmountRecord/audit" />
+			<mvc:mapping path="/tfundmanager/preAudit" />
+			<mvc:mapping path="/tfundmanager/audit" />
+			<bean class="com.cn.tianxia.admin.commons.interceptor.TokenInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	
+	<!-- <mvc:annotation-driven>
+		<mvc:message-converters register-defaults="false">
+			将StringHttpMessageConverter的默认编码设为UTF-8
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<constructor-arg value="UTF-8" />
+			</bean>
+			<ref bean="jacksonMessageConverter" />
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<bean id="jacksonMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="objectMapper" ref="jacksonObjectMapper" />
+	</bean> -->
+	
+	<!-- 启用shrio 控制器授权注解拦截方式 -->
+	<!-- <bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	保证实现了Shiro内部lifecycle函数的bean执行
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+	AOP式方法级权限检查
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean> -->
+</beans>
